@@ -1,0 +1,6 @@
+{
+  "name": "Kalkulate",
+  "description": "Precision scientific calculator with advanced trigonometry, dark mode, function graphing, unit converter, and persistent calculation history.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

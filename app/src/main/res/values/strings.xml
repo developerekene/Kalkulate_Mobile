@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Kalkulate</string>
+    <string name="mode_basic">Basic</string>
+    <string name="mode_scientific">Scientific</string>
+    <string name="tab_calculator">Calculator</string>
+    <string name="tab_graph">Graph</string>
+    <string name="tab_units">Units</string>
+    <string name="tab_history">History</string>
+    <string name="history_title">Calculation History</string>
+    <string name="history_empty_title">No calculations yet</string>
+    <string name="history_empty_subtitle">Your solved expressions will appear here automatically. Tap any entry to reuse it.</string>
+    <string name="history_clear_all">Clear History</string>
+    <string name="history_clear_confirm_title">Clear all history?</string>
+    <string name="history_clear_confirm_body">This will permanently remove all saved calculations from your device.</string>
+    <string name="cancel">Cancel</string>
+    <string name="clear">Clear</string>
+    <string name="copied_to_clipboard">Copied to clipboard</string>
+    <string name="settings_title">Display &amp; Precision</string>
+    <string name="constants_title">Physical Constants</string>
+    <string name="error_syntax">Syntax Error</string>
+    <string name="error_math">Math Error</string>
+</resources>
