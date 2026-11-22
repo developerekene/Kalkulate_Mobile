@@ -6,6 +6,7 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -22,11 +23,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -67,14 +66,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.devekene.kalkulate.R
 import com.devekene.kalkulate.ui.screens.AboutDeveloperScreen
 import com.devekene.kalkulate.ui.screens.AppSettingsScreen
 import com.devekene.kalkulate.ui.screens.CalculatorScreen
@@ -87,8 +86,6 @@ import com.devekene.kalkulate.ui.screens.MenuDestination
 import com.devekene.kalkulate.ui.screens.MenuModalSheet
 import com.devekene.kalkulate.ui.screens.SubScreenTopBar
 import com.devekene.kalkulate.ui.screens.UnitsScreen
-import com.devekene.kalkulate.ui.theme.JetBrainsMonoFontFamily
-import com.devekene.kalkulate.ui.theme.SpaceGroteskFontFamily
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -526,7 +523,12 @@ private fun KalkulateTopBar(
       horizontalArrangement = Arrangement.SpaceBetween,
       verticalAlignment = Alignment.CenterVertically,
     ) {
-      KalkulateWordmarkLogo()
+      Image(
+        painter = painterResource(id = R.drawable.img_kalkulate_home_logo),
+        contentDescription = "Kalkulate",
+        contentScale = ContentScale.Fit,
+        modifier = Modifier.height(38.dp).testTag("kalkulate_logo"),
+      )
 
       IconButton(
         onClick = onOpenMenu,
@@ -540,110 +542,6 @@ private fun KalkulateTopBar(
       }
     }
     HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f))
-  }
-}
-
-/**
- * Custom Kalkulate brand logo that fuses a miniature blue calculator (LCD display + 2x2 keypad)
- * directly inside the "Kalkulate" wordmark.
- */
-@Composable
-private fun KalkulateWordmarkLogo(modifier: Modifier = Modifier) {
-  val primaryBlue = MaterialTheme.colorScheme.primary
-  val containerBlue = MaterialTheme.colorScheme.primaryContainer
-  val textPrimary = MaterialTheme.colorScheme.onBackground
-
-  Row(
-    modifier =
-      modifier.semantics(mergeDescendants = true) { contentDescription = "Kalkulate" }
-        .testTag("kalkulate_logo"),
-    verticalAlignment = Alignment.CenterVertically,
-  ) {
-    Text(
-      text = "K",
-      fontFamily = SpaceGroteskFontFamily,
-      fontWeight = FontWeight.Bold,
-      fontSize = 24.sp,
-      letterSpacing = (-0.5).sp,
-      color = primaryBlue,
-    )
-
-    // Miniature calculator body fused inside the wordmark (replaces 'a' silhouette)
-    Surface(
-      shape = RoundedCornerShape(6.dp),
-      color = primaryBlue,
-      border = BorderStroke(1.dp, primaryBlue),
-      modifier = Modifier.padding(horizontal = 1.5.dp).offset(y = 1.dp).width(22.dp).height(24.dp),
-    ) {
-      Column(
-        modifier = Modifier.fillMaxSize().padding(2.5.dp),
-        verticalArrangement = Arrangement.SpaceBetween,
-      ) {
-        Box(
-          modifier =
-            Modifier.fillMaxWidth()
-              .height(5.dp)
-              .background(color = Color.White, shape = RoundedCornerShape(2.dp)),
-          contentAlignment = Alignment.CenterEnd,
-        ) {
-          Box(
-            modifier =
-              Modifier.padding(end = 1.5.dp)
-                .width(6.dp)
-                .height(1.5.dp)
-                .background(primaryBlue, RoundedCornerShape(1.dp))
-          )
-        }
-
-        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-          Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(2.dp),
-          ) {
-            MiniCalcCell(symbol = "+", bg = containerBlue, fg = primaryBlue, modifier = Modifier.weight(1f))
-            MiniCalcCell(symbol = "×", bg = containerBlue, fg = primaryBlue, modifier = Modifier.weight(1f))
-          }
-          Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(2.dp),
-          ) {
-            MiniCalcCell(symbol = "−", bg = containerBlue, fg = primaryBlue, modifier = Modifier.weight(1f))
-            MiniCalcCell(symbol = "=", bg = Color.White, fg = primaryBlue, modifier = Modifier.weight(1f))
-          }
-        }
-      }
-    }
-
-    Text(
-      text = "lkulate",
-      fontFamily = SpaceGroteskFontFamily,
-      fontWeight = FontWeight.Bold,
-      fontSize = 23.sp,
-      letterSpacing = (-0.5).sp,
-      color = textPrimary,
-    )
-  }
-}
-
-@Composable
-private fun MiniCalcCell(
-  symbol: String,
-  bg: Color,
-  fg: Color,
-  modifier: Modifier = Modifier,
-) {
-  Box(
-    modifier = modifier.height(6.5.dp).background(color = bg, shape = RoundedCornerShape(1.5.dp)),
-    contentAlignment = Alignment.Center,
-  ) {
-    Text(
-      text = symbol,
-      fontFamily = JetBrainsMonoFontFamily,
-      fontWeight = FontWeight.Bold,
-      fontSize = 5.5.sp,
-      lineHeight = 6.sp,
-      color = fg,
-    )
   }
 }
 

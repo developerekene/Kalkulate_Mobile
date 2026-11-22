@@ -495,7 +495,7 @@ fun AboutDeveloperScreen(modifier: Modifier = Modifier) {
             color = MaterialTheme.colorScheme.onSurface,
           )
           Text(
-            text = "Package: ${BuildConfig.APPLICATION_ID} • v${BuildConfig.VERSION_NAME}",
+            text = "Version v${BuildConfig.VERSION_NAME}",
             fontFamily = JetBrainsMonoFontFamily,
             style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
