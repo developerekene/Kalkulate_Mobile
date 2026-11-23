@@ -1,6 +1,6 @@
 {
   "name": "Kalkulate",
-  "description": "Precision scientific calculator with advanced trigonometry, function graphing, unit converter, and persistent calculation history.",
+  "description": "Precision scientific calculator for all science fields with advanced trigonometry, function graphing, unit converter, Engineering/Math/Physics/Biology/Chemistry constants, periodic table, and calculation history.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

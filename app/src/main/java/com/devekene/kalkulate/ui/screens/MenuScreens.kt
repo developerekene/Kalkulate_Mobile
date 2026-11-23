@@ -24,10 +24,12 @@ import androidx.compose.material.icons.automirrored.sharp.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.sharp.OpenInNew
 import androidx.compose.material.icons.sharp.Code
 import androidx.compose.material.icons.sharp.DeleteSweep
+import androidx.compose.material.icons.sharp.GridOn
 import androidx.compose.material.icons.sharp.Groups
 import androidx.compose.material.icons.sharp.Info
 import androidx.compose.material.icons.sharp.Language
 import androidx.compose.material.icons.sharp.Person
+import androidx.compose.material.icons.sharp.Science
 import androidx.compose.material.icons.sharp.Settings
 import androidx.compose.material.icons.sharp.Tune
 import androidx.compose.material3.AlertDialog
@@ -71,6 +73,8 @@ import kotlin.math.roundToInt
 
 enum class MenuDestination(val title: String) {
   DISPLAY_PRECISION("Display & Precision"),
+  SCIENCE_CONSTANTS("Science Constants"),
+  PERIODIC_TABLE("Periodic Table"),
   ABOUT_DEVELOPER("About Developer"),
   SETTINGS("Settings"),
   COMMUNITY("Join our Community"),
@@ -86,7 +90,10 @@ fun MenuModalSheet(
 
   ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
     Column(
-      modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp),
+      modifier =
+        Modifier.fillMaxWidth()
+          .verticalScroll(rememberScrollState())
+          .padding(horizontal = 20.dp, vertical = 8.dp),
       verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
       Text(
@@ -113,8 +120,30 @@ fun MenuModalSheet(
       )
 
       MenuActionTile(
+        title = "Science Constants",
+        subtitle = "Engineering, Math, Physics, Biology & Chemistry",
+        icon = Icons.Sharp.Science,
+        testTag = "menu_item_science_constants",
+        onClick = {
+          onDismiss()
+          onNavigate(MenuDestination.SCIENCE_CONSTANTS)
+        },
+      )
+
+      MenuActionTile(
+        title = "View Periodic Table",
+        subtitle = "All 118 elements, properties & origins",
+        icon = Icons.Sharp.GridOn,
+        testTag = "menu_item_periodic_table",
+        onClick = {
+          onDismiss()
+          onNavigate(MenuDestination.PERIODIC_TABLE)
+        },
+      )
+
+      MenuActionTile(
         title = "About Developer",
-        subtitle = "Built by Ekene • Contact & portfolio",
+        subtitle = "Ekene Okoli & Ogochukwu Okoli • Contact",
         icon = Icons.Sharp.Person,
         testTag = "menu_item_about_developer",
         onClick = {
@@ -394,8 +423,8 @@ fun AboutDeveloperScreen(modifier: Modifier = Modifier) {
           ) {
             Box(contentAlignment = Alignment.Center) {
               Text(
-                text = "E",
-                style = MaterialTheme.typography.headlineSmall,
+                text = "EO",
+                style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onPrimary,
               )
@@ -403,12 +432,12 @@ fun AboutDeveloperScreen(modifier: Modifier = Modifier) {
           }
           Column {
             Text(
-              text = "Ekene",
+              text = "Ekene Okoli",
               style = MaterialTheme.typography.headlineSmall,
               color = MaterialTheme.colorScheme.onSurface,
             )
             Text(
-              text = "Creator & Android Developer",
+              text = "Lead Software Engineer",
               style = MaterialTheme.typography.bodyMedium,
               color = MaterialTheme.colorScheme.primary,
               fontWeight = FontWeight.SemiBold,
@@ -418,7 +447,60 @@ fun AboutDeveloperScreen(modifier: Modifier = Modifier) {
 
         Text(
           text =
-            "Ekene built Kalkulate to provide a fast, accurate, and thoughtfully crafted mobile scientific calculator with advanced trigonometry, function plotting, unit conversion, and persistent calculation history.",
+            "Lead Software Engineer driving Kalkulate's system architecture, high-precision mathematical evaluation engine, multi-discipline scientific reference tools, and clean Jetpack Compose experience for every science field.",
+          style = MaterialTheme.typography.bodyLarge,
+          color = MaterialTheme.colorScheme.onSurface,
+        )
+      }
+    }
+
+    Surface(
+      shape = RoundedCornerShape(22.dp),
+      color = MaterialTheme.colorScheme.surfaceContainerLow,
+      border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.tertiary.copy(alpha = 0.35f)),
+      modifier = Modifier.fillMaxWidth(),
+    ) {
+      Column(
+        modifier = Modifier.padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalAlignment = Alignment.Start,
+      ) {
+        Row(
+          verticalAlignment = Alignment.CenterVertically,
+          horizontalArrangement = Arrangement.spacedBy(14.dp),
+        ) {
+          Surface(
+            shape = CircleShape,
+            color = MaterialTheme.colorScheme.tertiary,
+            modifier = Modifier.size(56.dp),
+          ) {
+            Box(contentAlignment = Alignment.Center) {
+              Text(
+                text = "OO",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onTertiary,
+              )
+            }
+          }
+          Column {
+            Text(
+              text = "Ogochukwu Okoli",
+              style = MaterialTheme.typography.headlineSmall,
+              color = MaterialTheme.colorScheme.onSurface,
+            )
+            Text(
+              text = "AI Engineer",
+              style = MaterialTheme.typography.bodyMedium,
+              color = MaterialTheme.colorScheme.tertiary,
+              fontWeight = FontWeight.SemiBold,
+            )
+          }
+        }
+
+        Text(
+          text =
+            "AI Engineer focused on intelligent scientific workflows, quantitative accuracy, and applied research tools supporting students, researchers, and engineers across STEM.",
           style = MaterialTheme.typography.bodyLarge,
           color = MaterialTheme.colorScheme.onSurface,
         )

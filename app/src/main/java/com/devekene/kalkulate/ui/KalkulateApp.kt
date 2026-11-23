@@ -84,6 +84,8 @@ import com.devekene.kalkulate.ui.screens.GraphScreen
 import com.devekene.kalkulate.ui.screens.HistoryScreen
 import com.devekene.kalkulate.ui.screens.MenuDestination
 import com.devekene.kalkulate.ui.screens.MenuModalSheet
+import com.devekene.kalkulate.ui.screens.PeriodicTableScreen
+import com.devekene.kalkulate.ui.screens.ScienceConstantsScreen
 import com.devekene.kalkulate.ui.screens.SubScreenTopBar
 import com.devekene.kalkulate.ui.screens.UnitsScreen
 import kotlinx.coroutines.launch
@@ -168,6 +170,24 @@ fun KalkulateApp(
                 onSelectAngleMode = viewModel::setAngleMode,
                 onPrecisionChange = viewModel::setDecimalPrecision,
                 onHapticChange = viewModel::setHapticEnabled,
+              )
+            }
+            MenuDestination.SCIENCE_CONSTANTS -> {
+              ScienceConstantsScreen(
+                onInsertConstant = { value ->
+                  viewModel.sendValueToCalculator(value)
+                  activeMenuScreen = null
+                },
+                onCopyConstant = copyWithFeedback,
+              )
+            }
+            MenuDestination.PERIODIC_TABLE -> {
+              PeriodicTableScreen(
+                onInsertAtomicMass = { mass ->
+                  viewModel.sendValueToCalculator(mass)
+                  activeMenuScreen = null
+                },
+                onCopyText = copyWithFeedback,
               )
             }
             MenuDestination.ABOUT_DEVELOPER -> {
